@@ -31,29 +31,29 @@
 // TODO: add test for man page
 // TODO: fix all document warnings
 
-mod calc_colorramp;
-mod calc_solar;
-mod cli;
-mod config;
-mod coproduct;
-mod error;
+pub mod calc_colorramp;
+pub mod calc_solar;
+pub mod cli;
+pub mod config;
+pub mod coproduct;
+pub mod error;
 
 #[cfg(unix_without_macos)]
-mod gamma_drm;
+pub mod gamma_drm;
 #[cfg(unix_without_macos)]
-mod gamma_randr;
+pub mod gamma_randr;
 #[cfg(unix_without_macos)]
-mod gamma_vidmode;
+pub mod gamma_vidmode;
 
 #[cfg(windows)]
-mod gamma_win32gdi;
+pub mod gamma_win32gdi;
 
-mod gamma_dummy;
-mod location_manual;
-mod types;
-mod types_display;
-mod types_parse;
-mod utils;
+pub mod gamma_dummy;
+pub mod location_manual;
+pub mod types;
+pub mod types_display;
+pub mod types_parse;
+pub mod utils;
 
 #[cfg(windows)]
 use crate::gamma_win32gdi::Win32Gdi;
@@ -116,7 +116,7 @@ pub fn main() {
     .unwrap_or_else(|e| error!("{e}"))
 }
 
-fn run(c: &Config, sig: &Receiver<()>) -> Result<(), ReddishError> {
+pub fn run(c: &Config, sig: &Receiver<()>) -> Result<(), ReddishError> {
     match c.mode {
         Mode::Daemon => {
             info!("{c}\n{HEADER}Current{HEADER:#}:");
@@ -143,7 +143,7 @@ fn run(c: &Config, sig: &Receiver<()>) -> Result<(), ReddishError> {
     Ok(())
 }
 
-fn run_print_mode(c: &Config) -> Result<(), ReddishError> {
+pub fn run_print_mode(c: &Config) -> Result<(), ReddishError> {
     let now = (c.time)();
     let delta = now.to_utc() - DateTime::UNIX_EPOCH;
     let loc = c.location.get()?;
@@ -153,11 +153,12 @@ fn run_print_mode(c: &Config) -> Result<(), ReddishError> {
         let elev = Elevation::new((delta + d).num_seconds() as f64, loc);
         format!("{BODY}{time}{BODY:#}: {:6.2}°", *elev)
     });
-    Ok(info!("{}", buf.join("\n")))
+    info!("{}", buf.join("\n"));
+    Ok(())
 }
 
 #[derive(Debug)]
-struct DaemonMode<'a, 'b> {
+pub struct DaemonMode<'a, 'b> {
     cfg: &'a Config,
     sig: &'b Receiver<()>,
 
@@ -301,7 +302,7 @@ trait Provider {
     fn get(&self) -> Result<Location, ProviderError>;
 }
 
-trait Adjuster {
+pub trait Adjuster {
     /// Restore the adjustment to the state before the Adjuster object was created
     fn restore(&self) -> Result<(), AdjusterError>;
     /// Set a specific temperature

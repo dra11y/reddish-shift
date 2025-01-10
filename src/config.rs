@@ -195,7 +195,7 @@ impl ConfigBuilder {
     }
 
     #[allow(clippy::too_many_lines)]
-    fn get_adjustment_method(
+    pub fn get_adjustment_method(
         kind: Option<AdjustmentMethodType>,
         mode: Mode,
     ) -> Result<AdjustmentMethod, ConfigError> {

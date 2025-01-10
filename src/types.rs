@@ -54,13 +54,13 @@ pub const MIN_ELEVATION: f64 = -90.0;
 pub const MAX_ELEVATION: f64 = 90.0;
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
-pub struct Temperature(u16);
+pub struct Temperature(pub u16);
 
 #[derive(Debug, Clone, Copy)]
-pub struct Brightness(f64);
+pub struct Brightness(pub f64);
 
 #[derive(Debug, Clone, Copy)]
-pub struct Gamma([f64; 3]);
+pub struct Gamma(pub [f64; 3]);
 
 #[derive(Debug, Clone, PartialEq, Default)]
 pub struct ColorSettings {
@@ -77,7 +77,7 @@ pub struct Time {
 
 /// Offset from midnight in seconds
 #[derive(Debug, Clone, Copy, PartialEq, Eq, PartialOrd, Ord)]
-pub struct TimeOffset(u32);
+pub struct TimeOffset(pub u32);
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
 pub struct TimeRange {
@@ -92,7 +92,7 @@ pub struct TimeRanges {
 }
 
 #[derive(Debug, Clone, Copy, PartialOrd)]
-pub struct Elevation(f64);
+pub struct Elevation(pub f64);
 
 /// The solar elevations at which the transition begins/ends,
 #[derive(Debug, Clone, Copy, PartialEq)]
@@ -102,9 +102,9 @@ pub struct ElevationRange {
 }
 
 #[derive(Debug, Clone, Copy)]
-pub struct Latitude(f64);
+pub struct Latitude(pub f64);
 #[derive(Debug, Clone, Copy)]
-pub struct Longitude(f64);
+pub struct Longitude(pub f64);
 #[derive(Debug, Clone, Copy, Default, PartialEq, Generic)]
 pub struct Location {
     pub lat: Latitude,
