@@ -34,10 +34,14 @@ ctrlc = { version = "3.4.4", features = ["termination"] }
 
 # config
 dirs = "5.0.1"
-serde = { version = "1.0.203", features = ["derive"] }
+serde = { optional = true, version = "1.0.203", features = ["derive"] }
 toml = "0.8.14"
 
 chrono = "0.4.38"
+
+[features]
+default = ["serde"]
+serde = ["dep:serde"]
 
 [target.'cfg(unix)'.dependencies]
 x11rb = { version = "0.13.1", features = ["xf86vidmode", "randr"] }
